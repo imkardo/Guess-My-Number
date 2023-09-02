@@ -5,7 +5,7 @@
 // document.querySelector('.score').textContent = 13;
 
 
-const secretNumber = Math.trunc(Math.random() * 20) + 1;
+let secretNumber = Math.trunc(Math.random() * 20) + 1;
 let score = 20;
 let highscore = 0;
 document.querySelector('.check').addEventListener('click', function () {
@@ -25,20 +25,10 @@ document.querySelector('.check').addEventListener('click', function () {
             highscore = score;
             document.querySelector('.highscore').textContent = highscore;
         }
-        // When Guess Is Too High
-    } else if (guess > secretNumber) {
+        // When Guess Is Wrong
+    } else if (guess !== secretNumber) {
         if (score > 1) {
-            document.querySelector('.message').textContent = '📈 Too High!';
-            score--;
-            document.querySelector('.score').textContent = score;
-        } else {
-            document.querySelector('.message').textContent = '💥 You Lost The Game';
-            document.querySelector('.score').textContent = 0;
-        }
-        // When Guess Is Too Low
-    } else if (guess < secretNumber) {
-        if (score > 1) {
-            document.querySelector('.message').textContent = '📉 Too Low!';
+            document.querySelector('.message').textContent = guess > secretNumber ? '📈 Too High!' : '📉 Too Low!';
             score--;
             document.querySelector('.score').textContent = score;
         } else {
@@ -46,12 +36,16 @@ document.querySelector('.check').addEventListener('click', function () {
             document.querySelector('.score').textContent = 0;
         }
     }
+
 });
 
 document.querySelector('.again').addEventListener('click', function () {
+    secretNumber = Math.trunc(Math.random() * 20) + 1;
     document.querySelector('.number').textContent = '?';
-    document.querySelector('.message').textContent = 'Start guessing ...';
-    document.querySelector('.score').textContent = '20';
+    document.querySelector('.message').textContent = 'Start guessing...';
+    score = 20;
+    document.querySelector('.score').textContent = score;
     document.querySelector('.guess').value = ' ';
     document.querySelector('body').style.backgroundColor = '#222'
+    document.querySelector('.number').style.width = '15rem';
 })
